@@ -1,0 +1,6 @@
+Asset,Expected,Observed,Verdict
+US 2Y,↓,↓ 5.2 bp,Confirmed
+US 10Y,↓,↓ 1.1 bp,Weak
+US 30Y,↓,↑ 0.7 bp,Divergence
+DXY,↓,↓ 0.1%,Confirmed
+Gold,↑,↓ 1.4%,Divergence

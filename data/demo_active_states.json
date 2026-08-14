@@ -1,0 +1,6 @@
+[
+ {"State":"FISCAL_TERM_PREMIUM_DOMINANCE","Status":"ACTIVE","Confidence":82,"Evidence":"Soft inflation impulse but long-end yields remain elevated.","Portfolio_Implication":"Higher hurdle for long-duration assets."},
+ {"State":"LONG_END_STRESS","Status":"ACTIVE","Confidence":88,"Evidence":"30Y remains above the Crown stress threshold.","Portfolio_Implication":"Reduce tactical duration sensitivity."},
+ {"State":"UNDEREXPOSED_RALLY_CHASE","Status":"WATCH","Confidence":67,"Evidence":"Price recovery is stronger than positioning recovery.","Portfolio_Implication":"Avoid reflexive shorts; watch breadth."},
+ {"State":"PRECIOUS_METALS_CONFIRMATION","Status":"NOT_CONFIRMED","Confidence":79,"Evidence":"Gold has not fully confirmed the favorable rates/USD backdrop.","Portfolio_Implication":"No new higher-beta miner adds."}
+]

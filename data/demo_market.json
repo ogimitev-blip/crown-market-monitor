@@ -1,0 +1,21 @@
+{
+  "overall_risk":"ELEVATED",
+  "macro":"MIXED_TRANSITION",
+  "market":"FRAGILE_RALLY",
+  "rates":"LONG_END_STRESS",
+  "event_risk":"MODERATE",
+  "portfolio_action":"NO IMMEDIATE ACTION",
+  "metrics":[
+    {"name":"US 2Y","value":"4.15%","delta":"-5.2 bp"},
+    {"name":"US 10Y","value":"4.64%","delta":"-1.1 bp"},
+    {"name":"US 30Y","value":"5.05%","delta":"+0.7 bp"},
+    {"name":"DXY","value":"99.9","delta":"-0.1%"},
+    {"name":"Gold","value":"4,405","delta":"-1.4%"},
+    {"name":"Brent","value":"Demo","delta":"+0.4%"}
+  ],
+  "changes":[
+    "30Y remains elevated despite softer inflation data",
+    "Gold is not fully confirming the easier rates backdrop",
+    "Breadth is improving while positioning remains light"
+  ]
+}
