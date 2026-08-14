@@ -1,19 +1,14 @@
-# Crown Market Monitor v1.1 — Live MVP
+# Crown Market Monitor v1.2 — Crown Integrated
 
-Live MVP:
-- Crown Now
-- Cross-Asset
-- State Explorer
+Cloud-only Streamlit monitor.
 
-## Data
-- Yahoo market data through `yfinance` (research/MVP feed)
-- FRED rates through the official FRED API
-- Streamlit secret: `FRED_API_KEY`
+## Changes from v1.1
+- Daily market changes now compare current price with the previous official daily close.
+- FRED Treasury yields are explicitly labelled DAILY.
+- Sidebar uploader accepts a Crown results ZIP.
+- If the ZIP contains Event-Aware outputs, Crown Now displays the actual strategic gate, deployment percentage, tactical multiplier, event phase, strategic score, and condition states.
+- Live market data refresh independently of the uploaded Crown run.
 
-## Deploy
-Upload the contents of this folder to the existing GitHub repository, replacing the previous files.
-Streamlit Community Cloud should automatically rebuild the app.
-
-## Notes
-The live state engine is intentionally conservative. Only a few high-confidence Crown rules are active.
-Full Crown-v2.1 state integration is the next step.
+## Streamlit Cloud
+Replace the files in the existing GitHub repository with the contents of this folder.
+Do not change your existing FRED_API_KEY secret.
