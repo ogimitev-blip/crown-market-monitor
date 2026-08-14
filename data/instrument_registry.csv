@@ -1,0 +1,13 @@
+Ticker,Yahoo_Symbol,Instrument,Sleeve,Focus_Profile
+IS0E,IS0E.DE,iShares Gold Producers UCITS ETF USD (Acc),Gold,GOLD_MINERS
+CBUX,CBUX.DE,iShares Global Infrastructure UCITS ETF,Infrastructure / Real Assets,EQUITY
+IS3Q,IS3Q.DE,iShares Edge MSCI World Quality Factor UCITS ETF,Quality Equity,EQUITY
+QDVE,QDVE.DE,iShares S&P 500 Information Technology Sector UCITS ETF,US Growth & AI,AI
+SXR0,SXR0.DE,iShares Edge MSCI World Minimum Volatility EUR Hedged UCITS ETF,Defensive Equity,EQUITY
+VFEA,VFEA.DE,Vanguard FTSE Emerging Markets UCITS ETF,Emerging Markets,EM
+VWCE,VWCE.DE,Vanguard FTSE All-World UCITS ETF,Global Equity,EQUITY
+VWCG,VWCG.DE,Vanguard FTSE Developed Europe UCITS ETF,Europe Equity,EQUITY
+XAAG,XAAG.DE,Invesco Bloomberg Commodity UCITS ETF,Broad Commodities,COMMODITY
+XDWH,XDWH.DE,Xtrackers MSCI World Health Care UCITS ETF,Defensive Equity,EQUITY
+XMK9,XMK9.DE,Xtrackers MSCI World Momentum UCITS ETF,Global Equity,EQUITY
+SEC0,SEC0.DE,iShares MSCI Global Semiconductors UCITS ETF,US Growth & AI,AI

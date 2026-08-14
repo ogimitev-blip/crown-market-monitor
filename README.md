@@ -1,14 +1,31 @@
-# Crown Market Monitor v1.3 — Freshness & State Semantics
+# Crown Market Monitor v2.0 — Trading Desk
 
-Changes:
-- Crown run age is calculated from the framework `as_of` timestamp.
-- Fresh/aging/stale Crown-run banner.
-- Crown `live_input_refresh.stale_inputs` and `unverified_or_unavailable_inputs` are surfaced.
-- FRED rates show explicit source freshness and stale warnings.
-- Condition-state status preserves uncertainty/confirmation semantics:
-  UNCONFIRMED, DATA_INSUFFICIENT, UNAVAILABLE, UNKNOWN, MIXED/TRANSITION,
-  WAIT/CONFIRM, NO TRIGGER, or ACTIVE STATE.
-- Live prices continue to refresh independently of the uploaded Crown ZIP.
+Cloud-only Streamlit trading cockpit.
 
-Deploy by replacing the existing GitHub repository files with the contents of this folder.
-Your existing FRED_API_KEY Streamlit secret remains unchanged.
+## New
+- Trading Desk with IS0E focus card and portfolio action table
+- Instrument Workbench with interactive candlesticks
+- 15m / 1h / 1D selectable timeframes
+- SMA 20/50/100/200, rolling VWAP, RSI, SuperTrend, Ichimoku
+- Crown support/resistance and average cost drawn on chart when available
+- Cross-Asset Lab with normalized performance and rolling correlations
+- Portfolio page combining uploaded Crown results with live technical context
+- IS0E is the prototype Gold/Miners transmission profile
+
+## Crown integration
+Upload the latest Crown Framework Results ZIP in the app sidebar.
+The monitor reads:
+- current portfolio snapshot
+- portfolio review
+- watchlist assessment / technical outputs
+- canonical execution governance
+- Event-Aware / research states
+
+## Deploy
+Replace the existing GitHub repository contents with this folder.
+Keep the existing Streamlit FRED_API_KEY secret.
+Streamlit Cloud should rebuild automatically.
+
+## Important
+This is a read-only decision/monitoring cockpit. It does not place broker orders.
+Yahoo/yfinance market data can be delayed or unavailable and is treated as a monitoring feed, not execution-grade market data.

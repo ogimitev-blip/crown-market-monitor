@@ -1,0 +1,7 @@
+Crown Market Monitor v2.0
+- Added Trading Desk.
+- Added Instrument Workbench and interactive technical charting.
+- Added Cross-Asset Lab.
+- Added Crown-integrated Portfolio trading board.
+- Added IS0E gold/miner transmission prototype.
+- Kept broker execution outside Streamlit.

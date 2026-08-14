@@ -25,6 +25,14 @@ PREFERRED_FILES = {
     "audit_summary": [
         "audit_summary_latest.json","self_audit_summary_latest.json"
     ],
+    "portfolio_snapshot": [
+        "current_portfolio_snapshot.csv","current_portfolio_snapshot_latest.csv"
+    ],
+    "portfolio_review": ["portfolio_review_latest.csv"],
+    "watchlist_assessment": ["watchlist_assessment_latest.csv"],
+    "watchlist_technical": ["watchlist_technical_latest.csv"],
+    "execution_governance": ["canonical_execution_governance_latest.csv"],
+    "trade_plan": ["three_layer_trade_plan_latest.csv"],
 }
 
 def _basename(name):
