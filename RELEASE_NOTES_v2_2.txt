@@ -1,0 +1,10 @@
+Crown Market Monitor v2.2 — Universal Macro & Cross-Asset Lab
+
+- Unified Yahoo/FRED/BLS/EIA comparison catalogue.
+- Direct BEA NIPA explorer.
+- Full Treasury curve, real yields, breakevens, liquidity, credit and financial conditions.
+- Direct BLS labour/inflation/JOLTS/PPI data.
+- Direct EIA petroleum spot/inventory data plus arbitrary legacy Series ID explorer.
+- Ratio, spread, bp spread, indexed, z-score, YoY-spread and rolling-correlation views.
+- Mixed-frequency alignment controls and warnings.
+- API Health panel.

@@ -39,6 +39,8 @@ pages={
     "Analysis":[
         st.Page("pages/5_Instrument_Workbench.py",title="Instrument Workbench",icon=":material/query_stats:"),
         st.Page("pages/6_Cross_Asset_Lab.py",title="Cross-Asset Lab",icon=":material/compare_arrows:"),
+        st.Page("pages/8_Ratio_Lab.py",title="Ratio Lab",icon=":material/percent:"),
+        st.Page("pages/9_Universal_Macro_Lab.py",title="Universal Macro Lab",icon=":material/public:"),
         st.Page("pages/2_Cross_Asset.py",title="Cross-Asset Snapshot",icon=":material/show_chart:"),
     ],
     "Portfolio":[

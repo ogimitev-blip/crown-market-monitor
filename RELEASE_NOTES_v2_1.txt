@@ -1,0 +1,13 @@
+Crown Market Monitor v2.1 — Ratio Lab
+
+New Ratio Lab:
+- selectable numerator and denominator lists
+- Crown preset ratios
+- ratio price history with SMA20/SMA50/SMA200
+- 60D z-score
+- 5D / 20D ratio momentum
+- normalized underlying comparison
+- 20D underlying return correlation
+- Crown interpretation panel
+
+Ratio diagnostics do not automatically create trading signals.
