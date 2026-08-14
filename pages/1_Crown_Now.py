@@ -16,6 +16,18 @@ def live_panel():
     st.caption(f"Market refresh: {market['last_update']}")
 
     if crown:
+        freshness=crown.get("run_freshness","UNKNOWN")
+        age=crown.get("run_age_hours")
+        asof=crown.get("run_as_of") or "unknown"
+        if freshness=="STALE":
+            st.error(f"⚠ Crown run is STALE — as of {asof} ({age:.1f}h old). Live market data may have moved beyond the framework decision layer.")
+        elif freshness=="AGING":
+            st.warning(f"◷ Crown run is aging — as of {asof} ({age:.1f}h old).")
+        elif freshness=="FRESH":
+            st.success(f"✓ Crown run fresh — as of {asof} ({age:.1f}h old).")
+        else:
+            st.info("Crown run timestamp could not be determined.")
+
         a,b,c,d=st.columns(4)
         a.metric("Strategic Gate",str(crown.get("strategic_gate","UNAVAILABLE")))
         dep=crown.get("strategic_deployment","UNAVAILABLE")
@@ -35,7 +47,15 @@ def live_panel():
         cols=st.columns(3)
         for j,m in enumerate(metrics[i:i+3]):
             cols[j].metric(m["name"],m["value"],m["delta"])
-            cols[j].caption(f"{m.get('frequency','')} · {m.get('source','')}")
+            fr=m.get("freshness","")
+            stale=" ⚠ STALE" if fr=="STALE" else ""
+            cols[j].caption(f"{m.get('frequency','')} · {m.get('source','')}{stale}")
+
+    # Explicit live-data freshness summary
+    stale_live=[m for m in metrics if m.get("freshness")=="STALE"]
+    if stale_live:
+        names=", ".join(m["name"] for m in stale_live)
+        st.warning(f"Stale live-source inputs: {names}. These are latest available DAILY observations, not intraday readings.")
 
     if crown:
         st.subheader("Actual Crown decision layer")
@@ -43,13 +63,22 @@ def live_panel():
         a.write(f"**Strategic score:** {crown.get('strategic_score','UNAVAILABLE')}")
         a.write(f"**Source:** {crown.get('source','')}")
         b.write("**Live monitor:** market prices refresh independently of the uploaded Crown run.")
-        b.write("**Important:** FRED Treasury yields remain daily observations.")
+        b.write("**Treasuries:** FRED observations are daily, not intraday.")
+
+        stale=crown.get("stale_inputs",[])
+        unver=crown.get("unverified_inputs",[])
+        if stale or unver:
+            with st.expander("⚠ Crown input-quality flags", expanded=True):
+                if stale:
+                    st.write("**Stale Crown inputs:** " + ", ".join(map(str,stale)))
+                if unver:
+                    st.write("**Unverified / unavailable Crown inputs:** " + ", ".join(map(str,unver)))
 
         states=crown.get("active_states")
         if isinstance(states,pd.DataFrame) and len(states):
             st.subheader("Crown condition states")
-            filt=states[~states["Status"].eq("UNAVAILABLE")].copy()
-            st.dataframe(filt,hide_index=True,width="stretch",height=420)
+            st.caption("Status now preserves Crown uncertainty/confirmation semantics instead of labeling every row OBSERVED.")
+            st.dataframe(states,hide_index=True,width="stretch",height=500)
         else:
             st.info("No condition-state dictionary was found in the uploaded ZIP.")
     else:

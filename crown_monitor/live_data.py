@@ -91,7 +91,7 @@ def load_yahoo_market():
             rows.append({
                 "name":name,"ticker":ticker,"value_raw":None,"value":"N/A",
                 "delta_raw":None,"delta":"N/A","source":"Yahoo/yfinance",
-                "frequency":"LIVE/INTRADAY","reference":"vs previous official close",
+                "frequency":"LIVE/INTRADAY","reference":"vs previous official close","freshness":"UNAVAILABLE",
                 "ok":False,"error":str(e)[:160]
             })
     return pd.DataFrame(rows)
@@ -128,17 +128,21 @@ def load_fred_rates():
             latest_date,latest=vals[0]
             previous=vals[1][1] if len(vals)>1 else latest
             delta_bp=(latest-previous)*100
+            obs_date=pd.Timestamp(latest_date).date()
+            today=pd.Timestamp.now(tz="UTC").date()
+            age_days=(today-obs_date).days
+            freshness="FRESH" if age_days<=1 else "STALE"
             rows.append({
                 "name":name,"series":series,"value_raw":latest,
                 "value":f"{latest:.2f}%","delta_raw":delta_bp,
                 "delta":f"{delta_bp:+.1f} bp","source":f"FRED · {latest_date}",
-                "frequency":"DAILY","reference":"vs previous FRED observation","ok":True
+                "frequency":"DAILY","reference":"vs previous FRED observation","freshness":freshness,"age_days":age_days,"ok":True
             })
         except Exception as e:
             rows.append({
                 "name":name,"series":series,"value_raw":None,"value":"N/A",
                 "delta_raw":None,"delta":"N/A","source":"FRED",
-                "frequency":"DAILY","reference":"vs previous FRED observation",
+                "frequency":"DAILY","reference":"vs previous FRED observation","freshness":"UNAVAILABLE","age_days":None,
                 "ok":False,"error":str(e)[:160]
             })
     return pd.DataFrame(rows)
@@ -204,11 +208,11 @@ def live_snapshot():
     for name in ["US 2Y","US 10Y","US 30Y"]:
         x=rates[rates["name"]==name]
         if len(x):
-            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","ok"]].to_dict())
+            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","freshness","ok"]].to_dict())
     for name in ["DXY","USDJPY","S&P 500","Nasdaq 100","VIX","Gold","Gold Miners","Brent","WTI"]:
         x=market[market["name"]==name]
         if len(x):
-            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","ok"]].to_dict())
+            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","freshness","ok"]].to_dict())
     return {
         "last_update":datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "market_df":market,"rates_df":rates,"states_df":states,"metrics":metrics

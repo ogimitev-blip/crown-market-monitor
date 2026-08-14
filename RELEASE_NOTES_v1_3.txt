@@ -1,0 +1,5 @@
+Crown Market Monitor v1.3
+- Added Crown-run age/freshness warning.
+- Added Crown stale/unverified input panel.
+- Added FRED observation freshness flags.
+- Replaced crude OBSERVED label with Crown-aware state status.

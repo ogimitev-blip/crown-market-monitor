@@ -1,14 +1,14 @@
-# Crown Market Monitor v1.2 — Crown Integrated
+# Crown Market Monitor v1.3 — Freshness & State Semantics
 
-Cloud-only Streamlit monitor.
+Changes:
+- Crown run age is calculated from the framework `as_of` timestamp.
+- Fresh/aging/stale Crown-run banner.
+- Crown `live_input_refresh.stale_inputs` and `unverified_or_unavailable_inputs` are surfaced.
+- FRED rates show explicit source freshness and stale warnings.
+- Condition-state status preserves uncertainty/confirmation semantics:
+  UNCONFIRMED, DATA_INSUFFICIENT, UNAVAILABLE, UNKNOWN, MIXED/TRANSITION,
+  WAIT/CONFIRM, NO TRIGGER, or ACTIVE STATE.
+- Live prices continue to refresh independently of the uploaded Crown ZIP.
 
-## Changes from v1.1
-- Daily market changes now compare current price with the previous official daily close.
-- FRED Treasury yields are explicitly labelled DAILY.
-- Sidebar uploader accepts a Crown results ZIP.
-- If the ZIP contains Event-Aware outputs, Crown Now displays the actual strategic gate, deployment percentage, tactical multiplier, event phase, strategic score, and condition states.
-- Live market data refresh independently of the uploaded Crown run.
-
-## Streamlit Cloud
-Replace the files in the existing GitHub repository with the contents of this folder.
-Do not change your existing FRED_API_KEY secret.
+Deploy by replacing the existing GitHub repository files with the contents of this folder.
+Your existing FRED_API_KEY Streamlit secret remains unchanged.
