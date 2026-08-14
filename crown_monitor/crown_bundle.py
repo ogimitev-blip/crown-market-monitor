@@ -33,6 +33,10 @@ PREFERRED_FILES = {
     "watchlist_technical": ["watchlist_technical_latest.csv"],
     "execution_governance": ["canonical_execution_governance_latest.csv"],
     "trade_plan": ["three_layer_trade_plan_latest.csv"],
+    "upcoming_event_risk": ["upcoming_event_risk_latest.csv"],
+    "event_transmission": ["event_transmission_latest.csv"],
+    "event_interactions": ["event_interactions_latest.csv"],
+    "upcoming_events": ["upcoming_events_latest.csv","event_calendar_latest.csv"],
 }
 
 def _basename(name):

@@ -81,3 +81,35 @@ EIA_API_KEY = "..."
 ```
 
 Missing optional keys are shown explicitly and do not break the rest of the app.
+
+
+## v2.3 Crown Trading Front End
+
+### Live Watch
+- Watches selected Crown relationships while the page is open
+- 60-second page refresh
+- Surfaces only threshold breaches / data gaps
+- Built-in thresholds use ratio/spread z-scores or configured composite levels
+
+### Saved Views & Alert Rules
+- Build custom two-series relationships
+- Choose transformation, alignment, history and alert threshold
+- Save a multi-chart dashboard for the current Streamlit session
+- Export/import workspace JSON for durable backup
+
+### Event overlays
+- Universal Macro Lab can overlay events from the uploaded Crown results ZIP
+- Manual event markers can be added in-app
+- Event lines are drawn directly on comparison charts
+
+### Automatic Crown interpretation
+- Built-in heuristic interpretation for breadth, concentration, AI leadership,
+  gold/miners, curve stress, credit, inflation transmission, liquidity, labour and oil
+- Heuristics are explicitly subordinate to the uploaded Crown Framework decision layer
+
+### Portfolio Diagnostics
+- IS0E, SEC0, VWCE, CBUX, QDVE and XDWH get preconfigured diagnostic stacks
+- Selecting a holding loads the cross-asset relationships most relevant to its causal transmission
+
+Important: Streamlit session state is not a durable database. Use the workspace JSON export
+to preserve custom views/rules between app resets. Live Watch only refreshes while its page is open.

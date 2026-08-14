@@ -1,0 +1,15 @@
+Crown Market Monitor v2.3 — Crown Trading Front End
+
+New:
+- Live Watch relationship threshold screen
+- Saved Views & custom alert rules
+- Workspace JSON import/export
+- Event overlays from Crown ZIP + manual event markers
+- Heuristic Crown interpretation engine for key relationship families
+- Portfolio-linked diagnostics for IS0E / SEC0 / VWCE / CBUX / QDVE / XDWH
+- Universal Macro Lab can save the current comparison directly as a custom view
+
+Limitations:
+- Live Watch refreshes only while the Streamlit page is open.
+- Session state is not durable across app resets; export workspace JSON for persistence.
+- Heuristic interpretations do not override canonical Crown Framework outputs.

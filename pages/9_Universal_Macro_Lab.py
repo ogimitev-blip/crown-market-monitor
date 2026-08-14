@@ -9,7 +9,10 @@ from crown_monitor.official_data import (
     load_bls_series,load_eia_series
 )
 from crown_monitor.universal_charts import comparison_chart,raw_pair_chart,single_series_chart
+from crown_monitor.event_tools import all_events
+from crown_monitor.preset_store import ensure_store, save_user_preset
 
+ensure_store()
 st.title("🌐 Universal Macro & Cross-Asset Lab")
 st.caption("Market prices + FRED + BLS + BEA + EIA in one Crown research cockpit.")
 
@@ -95,10 +98,45 @@ with tab1:
                     a3.metric("20-period correlation",f"{corr:+.2f}" if isinstance(corr,(int,float)) else "N/A")
                     a4.metric("Aligned observations",len(pair))
 
-                    st.plotly_chart(
-                        comparison_chart(transformed,f"{ma['label']} vs {mb['label']} — {operation}",operation),
-                        width="stretch",config={"displaylogo":False}
-                    )
+                    fig=comparison_chart(transformed,f"{ma['label']} vs {mb['label']} — {operation}",operation)
+
+                    show_events=st.checkbox("Overlay Crown/manual events",value=True)
+                    if show_events:
+                        bundle=st.session_state.get("crown_bundle",{})
+                        evs=all_events(bundle,st.session_state.get("manual_events",[]))
+                        if len(transformed):
+                            xmin=transformed.index.min(); xmax=transformed.index.max()
+                            for ev in evs:
+                                dt=ev["date"]
+                                try:
+                                    if dt.tzinfo is not None:
+                                        dt=dt.tz_localize(None)
+                                except Exception:
+                                    pass
+                                if xmin <= dt <= xmax:
+                                    fig.add_vline(x=dt,line_dash="dot",opacity=0.45)
+                                    fig.add_annotation(
+                                        x=dt,y=1.0,yref="paper",text=str(ev["label"])[:28],
+                                        showarrow=False,textangle=-90,yanchor="top",font=dict(size=9)
+                                    )
+
+                    st.plotly_chart(fig,width="stretch",config={"displaylogo":False})
+
+                    with st.expander("Save this relationship / alert",expanded=False):
+                        save_name=st.text_input("Saved view name",value=f"{ma['label']} vs {mb['label']}",key="universal_save_name")
+                        sc1,sc2,sc3=st.columns(3)
+                        alert_metric=sc1.selectbox("Alert metric",["z60","latest"],key="universal_alert_metric")
+                        alert_operator=sc2.selectbox("Trigger when",["<=",">=","<",">"],key="universal_alert_operator")
+                        alert_value=sc3.number_input("Threshold",value=1.5,step=0.25,key="universal_alert_value")
+                        if st.button("Save current relationship",key="universal_save_button"):
+                            save_user_preset({
+                                "name":save_name,"a":key_a,"b":key_b,"operation":operation,
+                                "alignment":alignment,"history":years,"family":"GENERIC",
+                                "alert_metric":alert_metric,"alert_operator":alert_operator,
+                                "alert_value":alert_value,
+                                "why":"Saved from Universal Macro Lab."
+                            })
+                            st.success("Saved. Export from Saved Views for durable backup.")
 
                     with st.expander("Underlying series — indexed comparison",expanded=False):
                         st.plotly_chart(raw_pair_chart(pair,ma["label"],mb["label"]),width="stretch",config={"displaylogo":False})
@@ -209,6 +247,15 @@ with tab3:
                     st.dataframe(s.tail(40).rename("Value").to_frame(),width="stretch")
             with st.expander("Raw BEA rows"):
                 st.dataframe(df.head(500),width="stretch",height=400)
+
+st.subheader("Manual chart events")
+with st.expander("Add an event marker",expanded=False):
+    ec1,ec2=st.columns(2)
+    event_date=ec1.date_input("Event date")
+    event_label=ec2.text_input("Event label",value="Macro event")
+    if st.button("Add manual event"):
+        st.session_state["manual_events"].append({"date":str(event_date),"label":event_label})
+        st.success("Event added for this session.")
 
 with tab4:
     st.subheader("API Health")

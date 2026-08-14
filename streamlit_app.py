@@ -35,12 +35,15 @@ pages={
     "Cockpit":[
         st.Page("pages/1_Crown_Now.py",title="Crown Now",icon=":material/dashboard:"),
         st.Page("pages/4_Trading_Desk.py",title="Trading Desk",icon=":material/candlestick_chart:"),
+        st.Page("pages/10_Live_Watch.py",title="Live Watch",icon=":material/notifications_active:"),
     ],
     "Analysis":[
         st.Page("pages/5_Instrument_Workbench.py",title="Instrument Workbench",icon=":material/query_stats:"),
         st.Page("pages/6_Cross_Asset_Lab.py",title="Cross-Asset Lab",icon=":material/compare_arrows:"),
         st.Page("pages/8_Ratio_Lab.py",title="Ratio Lab",icon=":material/percent:"),
         st.Page("pages/9_Universal_Macro_Lab.py",title="Universal Macro Lab",icon=":material/public:"),
+        st.Page("pages/11_Saved_Views.py",title="Saved Views",icon=":material/star:"),
+        st.Page("pages/12_Portfolio_Diagnostics.py",title="Portfolio Diagnostics",icon=":material/hub:"),
         st.Page("pages/2_Cross_Asset.py",title="Cross-Asset Snapshot",icon=":material/show_chart:"),
     ],
     "Portfolio":[
