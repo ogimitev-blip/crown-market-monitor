@@ -1,0 +1,8 @@
+Crown Market Monitor v1.3.1 hotfix
+
+Fixes:
+- Successful Yahoo rows always include freshness=LIVE.
+- FRED unavailable rows always include freshness metadata.
+- live_snapshot uses safe field access and cannot fail because one metadata field is absent.
+- load_market fallback always supplies last_update and required dashboard keys.
+- Crown Now uses defensive .get() access and surfaces a live-feed warning instead of crashing.

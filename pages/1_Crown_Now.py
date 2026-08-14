@@ -13,7 +13,7 @@ def live_panel():
     live_states=load_active_states()
     crown=st.session_state.get("crown_status")
 
-    st.caption(f"Market refresh: {market['last_update']}")
+    st.caption(f"Market refresh: {market.get('last_update','UNAVAILABLE')}")
 
     if crown:
         freshness=crown.get("run_freshness","UNKNOWN")
@@ -37,12 +37,14 @@ def live_panel():
         d.metric("Event Phase",str(crown.get("dominant_event_phase","UNAVAILABLE")))
     else:
         a,b,c=st.columns(3)
-        a.metric("Overall Risk",market["overall_risk"])
-        b.metric("Rates",market["rates"])
-        c.metric("Portfolio Action",market["portfolio_action"])
+        a.metric("Overall Risk",market.get("overall_risk","UNAVAILABLE"))
+        b.metric("Rates",market.get("rates","UNAVAILABLE"))
+        c.metric("Portfolio Action",market.get("portfolio_action","NO AUTOMATIC ACTION"))
 
+    if market.get("feed_error"):
+        st.warning("Live feed temporarily unavailable; showing fallback data. " + market.get("feed_error",""))
     st.subheader("Market strip")
-    metrics=market["metrics"]
+    metrics=market.get("metrics",[])
     for i in range(0,len(metrics),3):
         cols=st.columns(3)
         for j,m in enumerate(metrics[i:i+3]):

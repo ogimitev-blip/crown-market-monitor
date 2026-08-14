@@ -30,8 +30,16 @@ def load_market():
                 "Upload a Crown results ZIP to add actual Crown gates and state outputs."
             ],
         }
-    except Exception:
-        return json.loads((DATA/"demo_market.json").read_text(encoding="utf-8"))
+    except Exception as e:
+        demo=json.loads((DATA/"demo_market.json").read_text(encoding="utf-8"))
+        demo.setdefault("last_update","DEMO / LIVE FEED TEMPORARILY UNAVAILABLE")
+        demo.setdefault("metrics",[])
+        demo.setdefault("changes",[])
+        demo.setdefault("overall_risk","UNAVAILABLE")
+        demo.setdefault("rates","UNAVAILABLE")
+        demo.setdefault("portfolio_action","NO AUTOMATIC ACTION")
+        demo["feed_error"]=str(e)[:180]
+        return demo
 
 def load_active_states():
     try:

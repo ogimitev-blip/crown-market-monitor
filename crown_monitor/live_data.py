@@ -85,6 +85,7 @@ def load_yahoo_market():
                 "source":"Yahoo/yfinance",
                 "frequency":"LIVE/INTRADAY",
                 "reference":"vs previous official close",
+                "freshness":"LIVE",
                 "ok":True
             })
         except Exception as e:
@@ -103,7 +104,8 @@ def load_fred_rates():
         return pd.DataFrame([{
             "name":name,"series":series,"value_raw":None,"value":"N/A",
             "delta_raw":None,"delta":"FRED key missing","source":"FRED",
-            "frequency":"DAILY","reference":"vs previous FRED observation","ok":False
+            "frequency":"DAILY","reference":"vs previous FRED observation",
+            "freshness":"UNAVAILABLE","age_days":None,"ok":False
         } for name,series in FRED_SERIES.items()])
 
     rows=[]
@@ -200,20 +202,39 @@ def derive_live_states(market,rates):
         })
     return pd.DataFrame(states)
 
+def _safe_metric_row(df, name):
+    x=df[df["name"]==name]
+    if x.empty:
+        return None
+    r=x.iloc[0]
+    return {
+        "name": r.get("name", name),
+        "value": r.get("value", "N/A"),
+        "delta": r.get("delta", "N/A"),
+        "source": r.get("source", "UNAVAILABLE"),
+        "frequency": r.get("frequency", "UNAVAILABLE"),
+        "reference": r.get("reference", ""),
+        "freshness": r.get("freshness", "UNKNOWN"),
+        "ok": bool(r.get("ok", False)),
+    }
+
 def live_snapshot():
     market=load_yahoo_market()
     rates=load_fred_rates()
     states=derive_live_states(market,rates)
     metrics=[]
     for name in ["US 2Y","US 10Y","US 30Y"]:
-        x=rates[rates["name"]==name]
-        if len(x):
-            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","freshness","ok"]].to_dict())
+        item=_safe_metric_row(rates,name)
+        if item:
+            metrics.append(item)
     for name in ["DXY","USDJPY","S&P 500","Nasdaq 100","VIX","Gold","Gold Miners","Brent","WTI"]:
-        x=market[market["name"]==name]
-        if len(x):
-            metrics.append(x.iloc[0][["name","value","delta","source","frequency","reference","freshness","ok"]].to_dict())
+        item=_safe_metric_row(market,name)
+        if item:
+            metrics.append(item)
     return {
         "last_update":datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "market_df":market,"rates_df":rates,"states_df":states,"metrics":metrics
+        "market_df":market,
+        "rates_df":rates,
+        "states_df":states,
+        "metrics":metrics,
     }
